@@ -6,7 +6,7 @@ app = Flask(__name__)
 db = pymysql.connect(
     host="database-1.ctcmgywsktm4.ap-south-1.rds.amazonaws.com",
     user="admin",
-    password="YOUR_RDS_PASSWORD",
+    password="admin12345",
     database="travel_booking"
 )
 

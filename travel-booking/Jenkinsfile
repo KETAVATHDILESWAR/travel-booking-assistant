@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'echo "Build Successful"'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh '''
+                sudo cp index.html /var/www/html/
+                '''
+            }
+        }
+    }
+}

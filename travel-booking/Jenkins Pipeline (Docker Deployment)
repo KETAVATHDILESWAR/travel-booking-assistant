@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'sudo docker build -t travel-booking .'
+            }
+        }
+
+        stage('Stop Old Container') {
+            steps {
+                sh '''
+                sudo docker stop travel-booking || true
+                sudo docker rm travel-booking || true
+                '''
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                sh '''
+                sudo docker run -d \
+                --name travel-booking \
+                -p 80:80 \
+                travel-booking
+                '''
+            }
+        }
+    }
+}

@@ -1,31 +1,47 @@
-document.getElementById("bookingForm").addEventListener("submit", function(e){
+body{
 
-    e.preventDefault();
+font-family:Arial;
 
-    fetch("/book",{
+background:#f2f2f2;
 
-        method:"POST",
+text-align:center;
 
-        headers:{
-            "Content-Type":"application/json"
-        },
+}
 
-        body:JSON.stringify({
+form{
 
-            name:document.getElementById("name").value,
-            email:document.getElementById("email").value,
-            phone:document.getElementById("phone").value
+width:350px;
 
-        })
+margin:auto;
 
-    })
+background:white;
 
-    .then(response=>response.json())
+padding:20px;
 
-    .then(data=>{
+border-radius:10px;
 
-        document.getElementById("message").innerHTML=data.message;
+}
 
-    });
+input{
 
-});
+width:90%;
+
+padding:10px;
+
+margin-bottom:10px;
+
+}
+
+button{
+
+background:green;
+
+color:white;
+
+padding:10px 20px;
+
+border:none;
+
+cursor:pointer;
+
+}

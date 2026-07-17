@@ -9,28 +9,39 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                sh 'sudo docker build -t travel-booking .'
-            }
-        }
-
-        stage('Stop Old Container') {
+        stage('Build Frontend') {
             steps {
                 sh '''
-                sudo docker stop travel-booking || true
-                sudo docker rm travel-booking || true
+                cd travel-booking
+                docker build -t travel-frontend .
                 '''
             }
         }
 
-        stage('Run Container') {
+        stage('Build Backend') {
             steps {
                 sh '''
-                sudo docker run -d \
-                --name travel-booking \
+                cd travel-booking
+                docker build -t travel-backend ./backend
+                '''
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh '''
+                docker rm -f travel-frontend || true
+                docker rm -f travel-backend || true
+
+                docker run -d \
+                --name travel-frontend \
                 -p 80:80 \
-                travel-booking
+                travel-frontend
+
+                docker run -d \
+                --name travel-backend \
+                -p 5000:5000 \
+                travel-backend
                 '''
             }
         }

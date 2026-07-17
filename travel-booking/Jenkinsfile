@@ -2,49 +2,21 @@ pipeline {
     agent any
 
     stages {
-
         stage('Checkout') {
             steps {
-                git 'pipeline {
-    agent any
-
-    stages {
-
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/username/travel-booking-assistant.git'
+                checkout scm
             }
         }
 
         stage('Build') {
             steps {
-                sh 'echo Build Successful'
+                echo "Building travel booking assistant"
             }
         }
 
-        stage('Deploy') {
+        stage('Test') {
             steps {
-                sh '''
-                sudo cp -r * /var/www/html/
-                '''
-            }
-        }
-    }
-}'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                sh 'echo Build Successful'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                sh '''
-                sudo cp -r * /var/www/html/
-                '''
+                echo "Running tests"
             }
         }
     }

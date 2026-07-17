@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, request, jsonify
+import os
 import pymysql
 
 app = Flask(__name__)
@@ -8,11 +9,16 @@ db = pymysql.connect(
     user="admin",
     password="admin12345",
     database="travel_booking"
+    host=os.getenv("DB_HOST"),
+    user=os.getenv("DB_USER"),
+    password=os.getenv("DB_PASSWORD"),
+    database=os.getenv("DB_NAME")
 )
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return jsonify({"message": "Travel Booking API running"})
+
 
 @app.route('/book', methods=['POST'])
 def book():
@@ -34,6 +40,7 @@ def book():
     db.commit()
 
     return jsonify({"message": "Booking Successful"})
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

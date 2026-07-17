@@ -7,7 +7,6 @@ db = pymysql.connect(
     host="database-1.ctcmgywsktm4.ap-south-1.rds.amazonaws.com",
     user="admin",
     password="admin12345",
-    password="YOUR_PASSWORD",
     database="travel_booking"
 )
 
